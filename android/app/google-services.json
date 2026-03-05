@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "400646929982",
+    "project_id": "baby-bloom-server",
+    "storage_bucket": "baby-bloom-server.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:400646929982:android:65550a802af1d8450e9b6f",
+        "android_client_info": {
+          "package_name": "com.example.myapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgAhM10FG_daav1Rv8g5NRg2MldHTc2cg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
