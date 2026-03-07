@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myapp/models/home_card.dart';
 import 'package:myapp/models/user_profile.dart';
 import 'package:myapp/services/firestore_service.dart';
+import 'dart:developer' as developer;
 
 class HomeCardProvider with ChangeNotifier {
   FirestoreService _firestoreService = FirestoreService();
@@ -25,6 +26,8 @@ class HomeCardProvider with ChangeNotifier {
     _isLoading = true;
     notifyListeners();
 
+    developer.log('Fetching cards for Role: ${role.name}, Stage: ${stageType.name}, Week: $stageValue', name: 'myapp.provider');
+
     try {
       _cards = await _firestoreService.getHomeCards(
         role: role,
@@ -32,7 +35,12 @@ class HomeCardProvider with ChangeNotifier {
         stageValue: stageValue,
         limit: 3,
       );
-    } catch (e) {
+      developer.log('Successfully fetched ${_cards.length} cards.', name: 'myapp.provider');
+      if (_cards.isEmpty) {
+        developer.log('WARNING: No cards found for this criteria in Firestore!', name: 'myapp.provider');
+      }
+    } catch (e, s) {
+      developer.log('Error fetching cards', name: 'myapp.provider', error: e, stackTrace: s);
       _cards = [];
     }
 

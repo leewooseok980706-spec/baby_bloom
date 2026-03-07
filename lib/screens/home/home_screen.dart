@@ -4,7 +4,6 @@ import 'package:myapp/models/user_profile.dart';
 import 'package:myapp/providers/user_provider.dart';
 import 'package:myapp/providers/home_card_provider.dart';
 import 'package:myapp/services/auth_service.dart';
-import 'package:myapp/screens/detail/detail_screen.dart';
 import 'package:myapp/screens/home/home_card_widget.dart';
 import 'package:myapp/utils/db_seeder.dart';
 import 'dart:developer' as developer;
@@ -225,7 +224,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 );
 
                                 await context.read<UserProvider>().saveProfile(newProfile);
-                                DBSeeder().seedInitialData().catchError((e) => developer.log('Seeding error: $e'));
+                                // 시딩 완료를 기다림 (데이터 부재 방지를 위해 강제 시딩)
+                                developer.log('Starting Force Seed from HomeScreen...', name: 'myapp.home');
+                                await DBSeeder().seedInitialData(force: true);
 
                                 if (!sheetContext.mounted) return;
                                 Navigator.of(sheetContext).pop();
@@ -349,22 +350,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                   const EdgeInsets.symmetric(horizontal: 8),
                               child: HomeCardWidget(
                                 card: card,
-                                isDone: _doneCards.contains(index),
-                                onDone: () {
-                                  setState(() => _doneCards.add(index));
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text('잘 하셨어요! 😊'),
-                                      duration: Duration(seconds: 2),
-                                    ),
-                                  );
-                                },
-                                onDetail: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => DetailScreen(card: card),
-                                  ),
-                                ),
                               ),
                             );
                           },

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:myapp/models/user_profile.dart';
 import 'package:myapp/providers/user_provider.dart';
 import 'package:myapp/services/auth_service.dart';
+import 'package:myapp/screens/test/test_screen.dart';
 import 'dart:developer' as developer;
 
 class ProfileScreen extends StatefulWidget {
@@ -254,6 +255,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ],
                     ),
                     const SizedBox(height: 32),
+
+                    SizedBox(
+                      width: double.infinity,
+                      child: FilledButton.icon(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) => const TestScreen()),
+                          );
+                        },
+                        icon: const Icon(Icons.bug_report_outlined),
+                        label: const Text('UI 테스트 페이지'),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
 
                     SizedBox(
                       width: double.infinity,

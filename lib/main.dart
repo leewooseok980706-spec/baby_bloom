@@ -45,6 +45,7 @@ class BabyBloomApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Baby Bloom',
+      debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
       home: const AuthWrapper(),
     );
@@ -61,10 +62,20 @@ class AuthWrapper extends StatelessWidget {
     return StreamBuilder<User?>(
       stream: authService.userStream,
       builder: (context, snapshot) {
-        // 연결 상태 확인
+        // ✅ 브랜드 스플래시로 교체
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
+            backgroundColor: Color(0xFFFFF8F0),
+            body: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text('🌸', style: TextStyle(fontSize: 64)),
+                  SizedBox(height: 12),
+                  CircularProgressIndicator(color: Color(0xFFC97B9B)),
+                ],
+              ),
+            ),
           );
         }
 

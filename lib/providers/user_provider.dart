@@ -20,4 +20,10 @@ class UserProvider with ChangeNotifier {
     _profile = profile;
     notifyListeners();
   }
+
+  // 프로필 초기화 (테스트용)
+  void clearProfile() {
+    _profile = null;
+    notifyListeners();
+  }
 }
